@@ -33,7 +33,7 @@ public class UserController {
         private UserService userService;
 
         @GetMapping(value = "/getTopUsers")
-        public List<UserEntity> getsPharmacies(@RequestParam String from, @RequestParam String to,
+        public List<UserEntity> getTopUsers(@RequestParam String from, @RequestParam String to,
                         @RequestParam int top)
                         throws ParseException, java.text.ParseException {
 
@@ -45,7 +45,7 @@ public class UserController {
         }
 
         @GetMapping(value = "/searcHistory")
-        public List<PurchaseInfoResponse> getsPharmacies(@RequestParam String from, @RequestParam String to)
+        public List<PurchaseInfoResponse> searcHistory(@RequestParam String from, @RequestParam String to)
                         throws ParseException, java.text.ParseException {
 
                 SimpleDateFormat dateParser = new SimpleDateFormat("yyyy-MM-DD HH:mm:ss");

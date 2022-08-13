@@ -32,7 +32,7 @@ public class PharmaciesController {
 
     @GetMapping(value = "/getOpenPharmacies")
     public List<PharmaciesEntity> getsPharmacies(@RequestParam DAY day,
-            @RequestParam(defaultValue = "-1") int openTime) {
+            @RequestParam(defaultValue = "-1", required = false) int openTime) {
 
         return pharmaciesService.openPharmacies(day.toString(), openTime);
 
