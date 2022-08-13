@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import com.example.demo.service.FileReaderServie;
 
 @Component
-public class fileReaderConfiguration implements CommandLineRunner {
+public class FileReaderConfiguration implements CommandLineRunner {
 
     @Autowired
     private FileReaderServie fileReaderServie;

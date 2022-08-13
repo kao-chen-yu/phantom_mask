@@ -51,7 +51,7 @@ public class UserServiceImplement implements UserService {
         return map.entrySet().stream()
                 .sorted((e1, e2) -> e2.getKey().compareTo(e1.getKey()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new))
-                .values().stream().collect(Collectors.toList());
+                .values().stream().collect(Collectors.toList()).subList(0, top);
 
     }
 

@@ -27,9 +27,9 @@ public class FileReaderServiceImpl implements FileReaderServie {
 
         Object ob, ob2;
         try {
-            ob = new JSONParser().parse(new FileReader("C:/Users/User/Documents/phantom_mask/data/pharmacies.json"));
+            ob = new JSONParser().parse(new FileReader("./data/pharmacies.json"));
 
-            ob2 = new JSONParser().parse(new FileReader("C:/Users/User/Documents/phantom_mask/data/users.json"));
+            ob2 = new JSONParser().parse(new FileReader("./data/users.json"));
             // typecasting ob to JSONObject
             JSONArray pharmaciesInformations = (JSONArray) ob;
             readPharamacies(pharmaciesInformations);
@@ -42,7 +42,7 @@ public class FileReaderServiceImpl implements FileReaderServie {
             e.printStackTrace();
         }
 
-        // System.out.println(this.userList.toString());
+        // System.out.println(this.pharmaciesList.toString());
     }
 
     @Override
