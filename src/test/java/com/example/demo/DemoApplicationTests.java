@@ -26,14 +26,14 @@ class DemoApplicationTests {
 
 	@Test
 	void fileRead() {
-		System.out.println("file");
+
 		Assertions.assertTrue(fileReaderServie.dayList.size() > 0);
 		Assertions.assertTrue(fileReaderServie.userList.size() > 0);
 	}
 
 	@Test
 	void pramaciesControllerTest() {
-		System.out.println("file");
+
 		pramaciesController.getsPharmacies(DAY.Sat, 10);
 		pramaciesController.getsPharmacies(DAY.Sat, -1);
 
@@ -49,7 +49,7 @@ class DemoApplicationTests {
 
 	@Test
 	void userControllerTest() throws ParseException, java.text.ParseException {
-		System.out.println("file");
+
 		userController.getTopUsers("2021-01-02 15:18:51", "2021-01-20 15:18:51", 2);
 
 		userController.searcHistory("2021-01-02 15:18:51", "2021-01-20 15:18:51");

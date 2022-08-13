@@ -27,9 +27,9 @@ public class FileReaderServiceImpl implements FileReaderServie {
 
         Object ob, ob2;
         try {
-            ob = new JSONParser().parse(new FileReader("./data/pharmacies.json"));
+            ob = new JSONParser().parse(new FileReader("data/pharmacies.json"));
 
-            ob2 = new JSONParser().parse(new FileReader("./data/users.json"));
+            ob2 = new JSONParser().parse(new FileReader("data/users.json"));
             // typecasting ob to JSONObject
             JSONArray pharmaciesInformations = (JSONArray) ob;
             readPharamacies(pharmaciesInformations);
