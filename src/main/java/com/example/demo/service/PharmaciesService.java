@@ -18,6 +18,6 @@ public interface PharmaciesService {
 
     public List<PharmaciesEntity> searchPharmaciesInformations(String searchInfo, String searchBy);
 
-    public List<PharmaciesEntity> searchPharmacies(int from, int to, String search);
+    public List<PharmaciesEntity> searchPharmacies(int minPrice, int maxPrice, String search);
 
 }

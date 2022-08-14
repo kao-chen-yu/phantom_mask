@@ -2,6 +2,8 @@ package com.example.demo.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -17,6 +19,7 @@ public class PharmaciesEntity implements Comparable<PharmaciesEntity> {
     private String name;
     private double cashBalance;
     private String openingHours;
+    @JsonIgnore
     private List<OpeningHoursEntity> openingHoursList;
     private List<Mask> masks;
 

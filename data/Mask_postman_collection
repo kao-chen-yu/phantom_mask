@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "0f8acfb7-389c-4b49-acbe-24683d54d43c",
-		"name": "Mask",
+		"_postman_id": "6bacf0b6-14de-454c-b79a-e66615d0a3b0",
+		"name": "Mask Copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "1466256"
 	},
@@ -12,33 +12,23 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/getPharmaciesSold?pharmacyName=DFW Wellness&sortBy=name",
+					"raw": "http://localhost:8080/getOpenPharmacies?day=Sat&openTime=10",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"getPharmaciesSold"
+						"getOpenPharmacies"
 					],
 					"query": [
 						{
 							"key": "day",
-							"value": "Sat",
-							"disabled": true
+							"value": "Sat"
 						},
 						{
 							"key": "openTime",
-							"value": "10",
-							"disabled": true
-						},
-						{
-							"key": "pharmacyName",
-							"value": "DFW Wellness"
-						},
-						{
-							"key": "sortBy",
-							"value": "name"
+							"value": "10"
 						},
 						{
 							"key": "from",
@@ -71,7 +61,7 @@
 			"response": []
 		},
 		{
-			"name": "getOpenPharmacies",
+			"name": "getPharmaciesSold",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -135,12 +125,12 @@
 			"response": []
 		},
 		{
-			"name": "getOpenPharmacies",
+			"name": "getPharmaciesSearch",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/getPharmaciesSearch?from=9&to=35&search=greater:3",
+					"raw": "http://localhost:8080/getPharmaciesSearch?minPrice=9&maxPrice=35&search=greater:3",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -171,11 +161,11 @@
 							"disabled": true
 						},
 						{
-							"key": "from",
+							"key": "minPrice",
 							"value": "9"
 						},
 						{
-							"key": "to",
+							"key": "maxPrice",
 							"value": "35"
 						},
 						{
@@ -198,7 +188,7 @@
 			"response": []
 		},
 		{
-			"name": "getOpenPharmacies",
+			"name": "searchPharmacies",
 			"request": {
 				"method": "GET",
 				"header": [],

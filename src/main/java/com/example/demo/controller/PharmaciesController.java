@@ -47,10 +47,10 @@ public class PharmaciesController {
     }
 
     @GetMapping(value = "/getPharmaciesSearch")
-    public List<PharmaciesEntity> getPharmaciesSearch(@RequestParam int from, @RequestParam int to,
+    public List<PharmaciesEntity> getPharmaciesSearch(@RequestParam int minPrice, @RequestParam int maxPrice,
             @RequestParam String search) {
 
-        return pharmaciesService.searchPharmacies(from, to, search);
+        return pharmaciesService.searchPharmacies(minPrice, maxPrice, search);
 
     }
 

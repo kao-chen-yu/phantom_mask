@@ -41,7 +41,6 @@ public class PharmaciesServiceImplement implements PharmaciesService {
         List<PharmaciesEntity> openPharmaciesResult = new ArrayList<>();
 
         if (openTime != -1) {
-            System.out.println(openPharmacies.toString());
 
             for (PharmaciesEntity open : openPharmacies) {
                 OpeningHoursEntity openHour = open.getOpeningHoursList().stream()
@@ -51,6 +50,8 @@ public class PharmaciesServiceImplement implements PharmaciesService {
                     openPharmaciesResult.add(open);
 
             }
+        } else {
+            openPharmaciesResult = openPharmacies;
         }
         return openPharmaciesResult;
     }
@@ -74,7 +75,7 @@ public class PharmaciesServiceImplement implements PharmaciesService {
     }
 
     @Override
-    public List<PharmaciesEntity> searchPharmacies(int from, int to, String search) {
+    public List<PharmaciesEntity> searchPharmacies(int minPrice, int maxPrice, String search) {
 
         List<PharmaciesEntity> pharmacies = fileReaderServie.pharmaciesList;
 
@@ -85,7 +86,7 @@ public class PharmaciesServiceImplement implements PharmaciesService {
             String[] searchInformation = search.split(":");
 
             Long count = pharmacy.getMasks().stream()
-                    .filter(predicate -> predicate.getPrice() > from && predicate.getPrice() < to).count();
+                    .filter(predicate -> predicate.getPrice() > minPrice && predicate.getPrice() < maxPrice).count();
 
             if (searchInformation[0].equals("less")) {
                 if (count < Long.valueOf(searchInformation[1]))
