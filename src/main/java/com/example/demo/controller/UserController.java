@@ -62,4 +62,13 @@ public class UserController {
                                 maskInfomation.getPharamacy(), maskInfomation.getMaskName());
 
         }
+
+        @GetMapping(value = "/showUser")
+        public List<UserEntity> showUser(@RequestParam(defaultValue = "all", required = false) String user)
+                        throws ParseException, java.text.ParseException {
+
+                return userService.showUser(user);
+
+        }
+
 }

@@ -14,6 +14,8 @@ public interface PharmaciesService {
 
     public List<PharmaciesEntity> openPharmacies(String day, int openTime);
 
+    public List<PharmaciesEntity> showAllPharmacies();
+
     public List<Mask> getPharmacySold(String pharmacyName, String sortBy);
 
     public List<PharmaciesEntity> searchPharmaciesInformations(String searchInfo, String searchBy);

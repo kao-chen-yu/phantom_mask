@@ -343,7 +343,19 @@
     }	
 		.......
 	]
+ 
+* show all Pharmacies
 
+	Url : /showPharmacies
+	Mehtod : GET
+
+* show user
+
+	Url : /showPharmacies
+	Mehtod : GET
+	Parameter : user = xxx (default show all users )
+
+	
 ### Import Data Commands
   `rake import_data:book_store[PATH_TO_FILE]`  
   `rake import_data:user[PATH_TO_FILE]`

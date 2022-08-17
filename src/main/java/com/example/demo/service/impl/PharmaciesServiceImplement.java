@@ -122,4 +122,10 @@ public class PharmaciesServiceImplement implements PharmaciesService {
         return pharmciesResult;
     }
 
+    @Override
+    public List<PharmaciesEntity> showAllPharmacies() {
+        // TODO Auto-generated method stub
+        return fileReaderServie.pharmaciesList;
+    }
+
 }

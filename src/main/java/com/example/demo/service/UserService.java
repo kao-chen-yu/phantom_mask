@@ -17,6 +17,8 @@ public interface UserService {
 
     public List<UserEntity> topUsers(Date from, Date to, int top);
 
+    public List<UserEntity> showUser(String user);
+
     public List<PurchaseInfoResponse> UsersPurchadseInformation(Date from, Date to);
 
     public List<UserEntity> buyMask(String userName, String pharamacy,

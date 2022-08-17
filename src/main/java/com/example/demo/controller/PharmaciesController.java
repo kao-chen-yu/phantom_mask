@@ -60,4 +60,11 @@ public class PharmaciesController {
         return pharmaciesService.searchPharmaciesInformations(searchInfo, searchBy);
 
     }
+
+    @GetMapping(value = "/showPharmacies")
+    public List<PharmaciesEntity> showPharmacies() {
+
+        return pharmaciesService.showAllPharmacies();
+
+    }
 }

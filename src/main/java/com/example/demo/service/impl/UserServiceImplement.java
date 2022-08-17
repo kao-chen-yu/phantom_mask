@@ -125,4 +125,16 @@ public class UserServiceImplement implements UserService {
         return userList;
     }
 
+    @Override
+    public List<UserEntity> showUser(String user) {
+
+        if (user.equalsIgnoreCase("all")) {
+            return fileReaderServie.userList;
+        } else {
+            return fileReaderServie.userList.stream().filter(predicate -> predicate.getName().equalsIgnoreCase(user))
+                    .collect(Collectors.toList());
+        }
+
+    }
+
 }
