@@ -1,10 +1,8 @@
 FROM adoptopenjdk/openjdk11:jdk-11.0.8_10-alpine
 
-
 VOLUME /data
 
 ARG JAR_FILE=target/*.jar
-RUN mvn clean install
 
 ARG Pharmacies_FILE=data/pharmacies.json
 ARG User_File=data/users.json
