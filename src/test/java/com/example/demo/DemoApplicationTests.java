@@ -8,9 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.demo.controller.PharmaciesController;
 import com.example.demo.controller.UserController;
-import com.example.demo.entity.OpeningHoursEntity.DAY;
-import com.example.demo.service.FileReaderServie;
+
 import com.example.dto.request.BuyMaskRequest;
+import com.example.dto.response.OpeningHoursResponse.DAY;
 
 @SpringBootTest
 class DemoApplicationTests {
@@ -21,27 +21,17 @@ class DemoApplicationTests {
 	@Autowired
 	private UserController userController;
 
-	@Autowired
-	private FileReaderServie fileReaderServie;
-
-	@Test
-	void fileRead() {
-
-		Assertions.assertTrue(fileReaderServie.dayList.size() > 0);
-		Assertions.assertTrue(fileReaderServie.userList.size() > 0);
-	}
-
 	@Test
 	void pramaciesControllerTest() {
 
 		pramaciesController.getsPharmacies(DAY.Sat, 10);
 		pramaciesController.getsPharmacies(DAY.Sat, -1);
 
-		pramaciesController.getPharmaciesSold("DFW Wellness", "name");
-		pramaciesController.getPharmaciesSold("DFW Wellness", "price");
+		pramaciesController.getSoldPharmacies("DFW Wellness", "name");
+		pramaciesController.getSoldPharmacies("DFW Wellness", "price");
 
-		pramaciesController.getPharmaciesSearch(9, 35, "greater:3");
-		pramaciesController.getPharmaciesSearch(9, 35, "less:3");
+		pramaciesController.SearchRangePharmacies(9, 35, "greater:3");
+		pramaciesController.SearchRangePharmacies(9, 35, "less:3");
 
 		pramaciesController.searchPharmacies("blue", "mask");
 		pramaciesController.searchPharmacies("Well", "pharamcies");
@@ -54,7 +44,8 @@ class DemoApplicationTests {
 
 		userController.searcHistory("2021-01-02 15:18:51", "2021-01-20 15:18:51");
 
-		BuyMaskRequest maskInfomation = new BuyMaskRequest("Yvonne Guerrero", "Keystone Pharmacy",
+		BuyMaskRequest maskInfomation = new BuyMaskRequest("Yvonne Guerrero",
+				"Keystone Pharmacy",
 				"True Barrier (green) (3 per pack)");
 
 		userController.buyMask(maskInfomation);

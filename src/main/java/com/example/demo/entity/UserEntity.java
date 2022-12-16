@@ -1,39 +1,39 @@
 package com.example.demo.entity;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
-import org.joda.time.DateTime;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.EqualsAndHashCode;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
+@Entity
+@Table(name = "user")
 public class UserEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonIgnore
+    private long id;
+
+    @Column(name = "name")
     private String name;
-    private int cashBalance;
 
-    private List<PurchaseHistory> purchaseHistories;
+    @Column(name = "cashBalance")
+    private double cashBalance;
 
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class PurchaseHistory {
-        private String pharmacyName;
-        private String maskName;
-
-        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-        private Date transactionDate;
-        private double transactionAmount;
-    }
-
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user")
+    @EqualsAndHashCode.Exclude
+    private List<BuyHistoryEntity> purchaseHistories;
 }

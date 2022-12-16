@@ -7,7 +7,7 @@
 
 * List all pharmacies open at a specific time and on a day of the week if requested.
 	
-	Url : /getOpenPharmacies
+	Url : /openPharmacies
 	Mehtod : GET
 	Parameters : 
 		day : (required) enum -> ("Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun") 
@@ -48,7 +48,7 @@
 		.......
 	]
 * List all masks sold by a given pharmacy, sorted by mask name or price.
-	Url : /getPharmaciesSold
+	Url : /soldPharmacies
 	Mehtod : GET
 	Parameters : 
 		pharmacyName : (required) String 
@@ -78,7 +78,7 @@
 		.....
 	]	
 * List all pharmacies with more or less than x mask products within a price range.
-	Url : /getPharmaciesSearch
+	Url : /searchRangePharmacies
 	Mehtod : GET
 	Parameters : 
 		minPrice : (required) int
@@ -132,7 +132,7 @@
 		.......
 	]
 * The top x users by total transaction amount of masks within a date range.
-	Url : /getTopUsers
+	Url : /topUsers
 	Mehtod : GET
 	Parameters : 
 		from : (required) String (Date) : ex 2021-02-02 00:00:00 

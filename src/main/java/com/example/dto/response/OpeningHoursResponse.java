@@ -1,8 +1,8 @@
-package com.example.demo.entity;
+package com.example.dto.response;
 
 import org.joda.time.DateTime;
 
-public class OpeningHoursEntity {
+public class OpeningHoursResponse {
 
     public enum DAY {
         TIME, Mon, Tue, Wed, Thur, Fri, Sat, Sun
@@ -13,7 +13,7 @@ public class OpeningHoursEntity {
     public Integer to;
     public boolean isAllDay = false;
 
-    public OpeningHoursEntity(DAY day, Integer from, Integer to) {
+    public OpeningHoursResponse(DAY day, Integer from, Integer to) {
         this.day = day;
         this.from = from; // format time using 800 for 8:00am or 2300 for 23:00
         this.to = to;
@@ -24,7 +24,7 @@ public class OpeningHoursEntity {
         return "OpeningHours [day=" + day + ", from=" + from + ", to=" + to + ", isAllDay=" + isAllDay + "]";
     }
 
-    public OpeningHoursEntity() {
+    public OpeningHoursResponse() {
 
     }
 

@@ -1,140 +1,127 @@
 package com.example.demo.service.impl;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import org.joda.time.DateTime;
-import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.entity.BuyHistoryEntity;
 import com.example.demo.entity.PharmaciesEntity;
+import com.example.demo.entity.SellMaskEntity;
 import com.example.demo.entity.UserEntity;
-import com.example.demo.entity.PharmaciesEntity.Mask;
-import com.example.demo.entity.UserEntity.PurchaseHistory;
-import com.example.demo.service.FileReaderServie;
-import com.example.demo.service.PharmaciesService;
+import com.example.demo.repoistory.BuyHistoryRepository;
+import com.example.demo.repoistory.PharmaciesRepoistory;
+import com.example.demo.repoistory.SellMaskRepository;
+import com.example.demo.repoistory.UserRepository;
 import com.example.demo.service.UserService;
-import com.example.dto.response.PurchaseInfoResponse;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.dto.response.BuyMaskResponse;
+import com.example.dto.response.UserPurchaseInformationResponse;
+import com.example.dto.response.UserResponse;
 
 @Service
 public class UserServiceImplement implements UserService {
 
-    @Autowired
-    private FileReaderServie fileReaderServie;
+        @Autowired
+        private UserRepository userRepository;
 
-    @Override
-    public List<UserEntity> topUsers(Date from, Date to, int top) {
+        @Autowired
+        private BuyHistoryRepository buyHistoryRepository;
 
-        List<UserEntity> userList = fileReaderServie.userList;
-        List<UserEntity> userResult = new ArrayList<>();
+        @Autowired
+        private PharmaciesRepoistory pharmaciesRepoistory;
 
-        Map<Long, UserEntity> map = new HashMap();
+        @Autowired
+        private SellMaskRepository sellMaskRepository;
 
-        for (UserEntity user : userList) {
-            map.put(user.getPurchaseHistories().stream()
-                    .filter(predicate -> predicate.getTransactionDate().after(from)
-                            && predicate.getTransactionDate().before(to))
-                    .count(), user);
+        @Override
+        public List<UserResponse> topUsers(Date from, Date to, int top) {
+
+                List<UserEntity> userList = userRepository.findAll();
+
+                Map<Long, UserResponse> map = new HashMap();
+
+                for (UserEntity user : userList) {
+                        map.put(user.getPurchaseHistories().stream()
+                                        .filter(predicate -> predicate.getTransactionDate().after(from)
+                                                        && predicate.getTransactionDate().before(to))
+                                        .count(), covertToUserResponse(user));
+                }
+
+                return map.entrySet().stream()
+                                .sorted((e1, e2) -> e2.getKey().compareTo(e1.getKey()))
+                                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1,
+                                                LinkedHashMap::new))
+                                .values().stream().collect(Collectors.toList()).subList(0, top);
+
         }
 
-        return map.entrySet().stream()
-                .sorted((e1, e2) -> e2.getKey().compareTo(e1.getKey()))
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new))
-                .values().stream().collect(Collectors.toList()).subList(0, top);
+        @Override
+        public UserPurchaseInformationResponse UsersPurchadseInformation(Date from, Date to) {
 
-    }
+                Map<String, Object> result = buyHistoryRepository.findAllPharmacies(from, to);
 
-    @Override
-    public List<PurchaseInfoResponse> UsersPurchadseInformation(Date from, Date to) {
+                return new UserPurchaseInformationResponse(Integer.valueOf(result.get("cont").toString()),
+                                Double.valueOf(result.get("total").toString()));
 
-        List<PurchaseHistory> purchaseHistory = new ArrayList<>();
-
-        List<PurchaseInfoResponse> purchaseResult = new ArrayList<>();
-
-        fileReaderServie.userList.forEach(user -> {
-            purchaseHistory.addAll(user.getPurchaseHistories());
-        });
-
-        Map<String, List<PurchaseHistory>> purchaseMap = purchaseHistory.stream().filter(
-                predicate -> predicate.getTransactionDate().after(from) && predicate.getTransactionDate().before(to))
-                .collect(Collectors.groupingBy(PurchaseHistory::getMaskName));
-
-        purchaseMap.forEach((key, purchase) -> {
-            PurchaseInfoResponse purchaseResponse = new PurchaseInfoResponse();
-            int total = 0;
-
-            purchaseResponse.setName(key);
-            purchaseResponse.setNumber(purchase.size());
-
-            for (PurchaseHistory history : purchase)
-                total += history.getTransactionAmount();
-
-            purchaseResponse.setTotalPrice(total);
-
-            purchaseResult.add(purchaseResponse);
-        });
-
-        // System.out.println(purchaseResult.toString());
-        return purchaseResult;
-    }
-
-    @Override
-    public List<UserEntity> buyMask(String userName, String pharamacy,
-            String maskName) {
-
-        List<UserEntity> userList = fileReaderServie.userList;
-        UserEntity user = userList.stream().filter(predicate -> predicate.getName().equals(userName)).findAny().get();
-
-        List<PharmaciesEntity> pharmacies = fileReaderServie.pharmaciesList;
-
-        PharmaciesEntity buyPharmacy = pharmacies.stream()
-                .filter(predicate -> predicate.getName().equals(pharamacy)
-                        && predicate.getMasks().stream().anyMatch(mask -> mask.getName().equals(maskName)))
-                .findFirst().get();
-
-        if (buyPharmacy != null) {
-            Mask buyMask = buyPharmacy.getMasks().stream().filter(predicate -> predicate.getName().endsWith(maskName))
-                    .findAny().get();
-            pharmacies.remove(buyPharmacy);
-            buyPharmacy.setCashBalance(buyPharmacy.getCashBalance() + buyMask.getPrice());
-
-            pharmacies.add(buyPharmacy);
-
-            Date now = new Date(System.currentTimeMillis());
-
-            PurchaseHistory history = new PurchaseHistory();
-            history.setMaskName(maskName);
-            history.setPharmacyName(pharamacy);
-            history.setTransactionAmount(buyMask.getPrice());
-            history.setTransactionDate(now);
-
-            user.getPurchaseHistories().add(history);
         }
 
-        return userList;
-    }
+        @Override
+        public BuyMaskResponse buyMask(String userName, String pharamacy,
+                        String maskName) {
 
-    @Override
-    public List<UserEntity> showUser(String user) {
+                PharmaciesEntity pharmacyEntity = pharmaciesRepoistory.findByName(pharamacy);
 
-        if (user.equalsIgnoreCase("all")) {
-            return fileReaderServie.userList;
-        } else {
-            return fileReaderServie.userList.stream().filter(predicate -> predicate.getName().equalsIgnoreCase(user))
-                    .collect(Collectors.toList());
+                UserEntity user = userRepository.findByName(userName);
+
+                SellMaskEntity sellMaskEntity = pharmacyEntity.getMasks().stream()
+                                .filter(predicate -> predicate.getMaskName().equals(maskName)).findFirst().get();
+
+                BuyMaskResponse response = new BuyMaskResponse();
+
+                if (sellMaskEntity.getNumber() > 0) {
+
+                        sellMaskEntity.setNumber(sellMaskEntity.getNumber() - 1);
+
+                        user.setCashBalance(user.getCashBalance() - sellMaskEntity.getPrice());
+                        pharmacyEntity.setCashBalance(pharmacyEntity.getCashBalance() +
+                                        sellMaskEntity.getPrice());
+
+                        BuyHistoryEntity history = BuyHistoryEntity.builder().maskName(maskName).pharmacyName(maskName)
+                                        .transactionAmount(sellMaskEntity.getPrice()).user(user)
+                                        .transactionDate(new Date()).build();
+
+                        user.getPurchaseHistories().add(history);
+
+                        userRepository.save(user);
+                        sellMaskRepository.save(sellMaskEntity);
+                        pharmaciesRepoistory.save(pharmacyEntity);
+                        buyHistoryRepository.save(history);
+
+                        response.setBuyResult("success");
+                        response.setName(user.getName());
+                        response.setCashBalance(user.getCashBalance());
+
+                } else {
+
+                        response.setBuyResult("fail");
+                        response.setName(user.getName());
+                        response.setCashBalance(user.getCashBalance());
+                }
+
+                return response;
+
         }
 
-    }
+        @Override
+        public UserResponse covertToUserResponse(UserEntity userEntity) {
+                return UserResponse.builder().name(userEntity.getName())
+                                .cashBalance(userEntity.getCashBalance())
+                                .purchaseHistories(userEntity.getPurchaseHistories()).build();
+        }
 
 }

@@ -1,18 +1,9 @@
 package com.example.demo.controller;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+
 import java.util.List;
 
-import org.joda.time.DateTime;
-import org.joda.time.chrono.BuddhistChronology;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-import org.json.simple.JSONArray;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.entity.UserEntity;
 import com.example.demo.service.UserService;
 import com.example.dto.request.BuyMaskRequest;
-import com.example.dto.response.PurchaseInfoResponse;
+import com.example.dto.response.BuyMaskResponse;
+
+import com.example.dto.response.UserPurchaseInformationResponse;
+import com.example.dto.response.UserResponse;
 
 @RestController
 public class UserController {
@@ -32,8 +25,8 @@ public class UserController {
         @Autowired
         private UserService userService;
 
-        @GetMapping(value = "/getTopUsers")
-        public List<UserEntity> getTopUsers(@RequestParam String from, @RequestParam String to,
+        @GetMapping(value = "/topUsers")
+        public List<UserResponse> getTopUsers(@RequestParam String from, @RequestParam String to,
                         @RequestParam int top)
                         throws ParseException, java.text.ParseException {
 
@@ -45,7 +38,7 @@ public class UserController {
         }
 
         @GetMapping(value = "/searcHistory")
-        public List<PurchaseInfoResponse> searcHistory(@RequestParam String from, @RequestParam String to)
+        public UserPurchaseInformationResponse searcHistory(@RequestParam String from, @RequestParam String to)
                         throws ParseException, java.text.ParseException {
 
                 SimpleDateFormat dateParser = new SimpleDateFormat("yyyy-MM-DD HH:mm:ss");
@@ -56,18 +49,10 @@ public class UserController {
         }
 
         @PostMapping(value = "/buyMask")
-        public List<UserEntity> buyMask(@RequestBody BuyMaskRequest maskInfomation) {
+        public BuyMaskResponse buyMask(@RequestBody BuyMaskRequest maskInfomation) {
 
                 return userService.buyMask(maskInfomation.getUserName(),
                                 maskInfomation.getPharamacy(), maskInfomation.getMaskName());
-
-        }
-
-        @GetMapping(value = "/showUser")
-        public List<UserEntity> showUser(@RequestParam(defaultValue = "all", required = false) String user)
-                        throws ParseException, java.text.ParseException {
-
-                return userService.showUser(user);
 
         }
 
