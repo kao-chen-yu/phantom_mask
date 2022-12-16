@@ -1,0 +1,371 @@
+{
+	"info": {
+		"_postman_id": "ecabf0fa-d268-4b5f-9b9d-d3be6e030789",
+		"name": "Mask Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1466256"
+	},
+	"item": [
+		{
+			"name": "openPharmacies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://104.196.226.252:3080/openPharmacies?day=Sat&openTime=10",
+					"protocol": "http",
+					"host": [
+						"104",
+						"196",
+						"226",
+						"252"
+					],
+					"port": "3080",
+					"path": [
+						"openPharmacies"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "9",
+							"disabled": true
+						},
+						{
+							"key": "to",
+							"value": "35",
+							"disabled": true
+						},
+						{
+							"key": "search",
+							"value": "greater:3",
+							"disabled": true
+						},
+						{
+							"key": "searchInfo",
+							"value": "blue",
+							"disabled": true
+						},
+						{
+							"key": "searchBy",
+							"value": "mask",
+							"disabled": true
+						},
+						{
+							"key": "day",
+							"value": "Sat"
+						},
+						{
+							"key": "openTime",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "soldPharmacies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://104.196.226.252:3080/soldPharmacies?pharmacyName=DFW Wellness&sortBy=name",
+					"protocol": "http",
+					"host": [
+						"104",
+						"196",
+						"226",
+						"252"
+					],
+					"port": "3080",
+					"path": [
+						"soldPharmacies"
+					],
+					"query": [
+						{
+							"key": "day",
+							"value": "Sat",
+							"disabled": true
+						},
+						{
+							"key": "openTime",
+							"value": "10",
+							"disabled": true
+						},
+						{
+							"key": "pharmacyName",
+							"value": "DFW Wellness"
+						},
+						{
+							"key": "sortBy",
+							"value": "name"
+						},
+						{
+							"key": "from",
+							"value": "9",
+							"disabled": true
+						},
+						{
+							"key": "to",
+							"value": "35",
+							"disabled": true
+						},
+						{
+							"key": "search",
+							"value": "greater:3",
+							"disabled": true
+						},
+						{
+							"key": "searchInfo",
+							"value": "blue",
+							"disabled": true
+						},
+						{
+							"key": "searchBy",
+							"value": "mask",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "searchRangePharmacies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://104.196.226.252:3080/searchRangePharmacies?minPrice=9&maxPrice=35&search=greater:3",
+					"protocol": "http",
+					"host": [
+						"104",
+						"196",
+						"226",
+						"252"
+					],
+					"port": "3080",
+					"path": [
+						"searchRangePharmacies"
+					],
+					"query": [
+						{
+							"key": "day",
+							"value": "Sat",
+							"disabled": true
+						},
+						{
+							"key": "openTime",
+							"value": "10",
+							"disabled": true
+						},
+						{
+							"key": "pharmacyName",
+							"value": "DFW Wellness",
+							"disabled": true
+						},
+						{
+							"key": "sortBy",
+							"value": "name",
+							"disabled": true
+						},
+						{
+							"key": "minPrice",
+							"value": "9"
+						},
+						{
+							"key": "maxPrice",
+							"value": "35"
+						},
+						{
+							"key": "search",
+							"value": "greater:3"
+						},
+						{
+							"key": "searchInfo",
+							"value": "blue",
+							"disabled": true
+						},
+						{
+							"key": "searchBy",
+							"value": "mask",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "searchPharmacies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://104.196.226.252:3080/searchPharmacies?searchInfo=blue&searchBy=mask",
+					"protocol": "http",
+					"host": [
+						"104",
+						"196",
+						"226",
+						"252"
+					],
+					"port": "3080",
+					"path": [
+						"searchPharmacies"
+					],
+					"query": [
+						{
+							"key": "day",
+							"value": "Sat",
+							"disabled": true
+						},
+						{
+							"key": "openTime",
+							"value": "10",
+							"disabled": true
+						},
+						{
+							"key": "pharmacyName",
+							"value": "DFW Wellness",
+							"disabled": true
+						},
+						{
+							"key": "sortBy",
+							"value": "name",
+							"disabled": true
+						},
+						{
+							"key": "from",
+							"value": "9",
+							"disabled": true
+						},
+						{
+							"key": "to",
+							"value": "35",
+							"disabled": true
+						},
+						{
+							"key": "search",
+							"value": "greater:3",
+							"disabled": true
+						},
+						{
+							"key": "searchInfo",
+							"value": "blue"
+						},
+						{
+							"key": "searchBy",
+							"value": "mask"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "buyMask",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\":\"Yvonne Guerrero\",\r\n    \"pharamacy\":\"Keystone Pharmacy\",\r\n    \"maskName\":\"True Barrier (green) (3 per pack)\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://104.196.226.252:3080/buyMask",
+					"protocol": "http",
+					"host": [
+						"104",
+						"196",
+						"226",
+						"252"
+					],
+					"port": "3080",
+					"path": [
+						"buyMask"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "searcHistory",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://104.196.226.252:3080/searcHistory?from=2021-01-02 15:18:51&to=2021-01-20 15:18:51",
+					"protocol": "http",
+					"host": [
+						"104",
+						"196",
+						"226",
+						"252"
+					],
+					"port": "3080",
+					"path": [
+						"searcHistory"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "2021-01-02 15:18:51"
+						},
+						{
+							"key": "to",
+							"value": "2021-01-20 15:18:51"
+						},
+						{
+							"key": "top",
+							"value": "5",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "topUsers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://104.196.226.252:3080/topUsers?from=2021-01-02 15:18:51&to=2021-01-20 15:18:51&top=5",
+					"protocol": "http",
+					"host": [
+						"104",
+						"196",
+						"226",
+						"252"
+					],
+					"port": "3080",
+					"path": [
+						"topUsers"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "2021-01-02 15:18:51"
+						},
+						{
+							"key": "to",
+							"value": "2021-01-20 15:18:51"
+						},
+						{
+							"key": "top",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
